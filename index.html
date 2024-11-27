@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Guess & 3D Slider</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/ica-rubrik-black');
+        @import url('https://fonts.cdnfonts.com/css/poppins');
+
+        /* Body Styling */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #D2D2D2;
+            background-image:
+                repeating-linear-gradient(
+                    to right, transparent 0 100px,
+                    #25283b22 100px 101px
+                ),
+                repeating-linear-gradient(
+                    to bottom, transparent 0 100px,
+                    #25283b22 100px 101px
+                );
+            overflow: hidden;
+        }
+
+        /* Video Background */
+        video.background-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            filter: brightness(60%);
+        }
+
+        /* 3D Slider */
+        .banner {
+            width: 100%;
+            height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .banner .slider {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            top: 10%;
+            left: calc(50% - 100px);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            animation: autoRun 20s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes autoRun {
+            from {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(0deg);
+            }
+
+            to {
+                transform: perspective(1000px) rotateX(-16deg) rotateY(360deg);
+            }
+        }
+
+        .banner .slider .item {
+            position: absolute;
+            inset: 0 0 0 0;
+            transform: rotateY(calc((var(--position) - 1) * (360 / var(--quantity)) * 1deg)) translateZ(550px);
+        }
+
+        .banner .slider .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Card Styling */
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 300px; /* Adjusted to fit with 3D slider */
+            z-index: 3;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        button {
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Giphy and Tenor Integration */
+        #tenor-gif,
+        #giphy-meme,
+        #large-giphy-meme {
+            display: none;
+        }
+
+        #giphy-meme,
+        #large-giphy-meme {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        #giphy-meme iframe,
+        #large-giphy-meme iframe {
+            width: 100%;
+            height: auto;
+        }
+        body::before{
+            position: absolute;
+            width: min(1400px, 90vw);
+            top: 10%;
+            left: 50%;
+            height: 90%;
+            transform: translateX(-50%);
+            content: '';
+            background-image: url(model.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: top center;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop class="background-video">
+        <source src="istockphoto-2059897688-640_adpp_is.mp4">
+    </video>
+
+    <div class="banner">
+        <div class="slider" style="--quantity: 10">
+            <div class="item" style="--position: 1"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 2"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 3"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 4"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 5"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 6"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 7"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 8"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 9"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+            <div class="item" style="--position: 10"><img src="A_vibrant_3D_illustration_of_colorful_jigsaw_puzzl.jpg" alt=""></div>
+        </div>
+
+        <div class="container text-center mt-2">
+            <div class="alert alert-primary" role="alert">
+                <p style="font-size: 20px">Random Guess</p>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Input your number between 1 to 100</h5>
+                        <input type="number" id="user-input" class="form-control">
+                        <button type="button" class="btn btn-primary mt-2" id="submit" onclick="guess_num()">Submit Guess</button>
+                        <button type="button" class="btn btn-danger mt-2" onclick="resetGame()">Reset Game</button>
+                    </div>
+                    <div id="tenor-gif" class="tenor-gif-embed" data-postid="8843762" data-share-method="host" data-aspect-ratio="1.25" data-width="100%">
+                        <a href="https://tenor.com/view/noice-nice-click-gif-8843762">Noice Nice GIF</a>
+                        from <a href="https://tenor.com/search/noice-gifs">Noice GIFs</a>
+                    </div>
+                    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+                    <div id="giphy-meme">
+                        <iframe src="https://giphy.com/embed/H1dxi6xdh4NGQCZSvz" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                        <p><a href="https://giphy.com/gifs/justviralnet-cat-hilarious-typing-H1dxi6xdh4NGQCZSvz">via GIPHY</a></p>
+                    </div>
+                    <div id="large-giphy-meme">
+                        <iframe src="https://giphy.com/embed/KOS39Lrl3c4iA" width="480" height="307" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                        <p><a href="https://giphy.com/gifs/fail-funny-falling-KOS39Lrl3c4iA">via GIPHY</a></p>
+                    </div>
+                    <div class="alert alert-secondary" id="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let randomnumber = Math.floor(Math.random() * 101);
+
+        function guess_num() {
+            let result = document.getElementById("result");
+            let submit = document.getElementById('submit');
+            let tenorGif = document.getElementById("tenor-gif");
+            let giphyMeme = document.getElementById("giphy-meme");
+            let largeGiphyMeme = document.getElementById("large-giphy-meme");
+            let guess = Number(document.getElementById("user-input").value);
+
+            if (guess === randomnumber) {
+                result.textContent = "Success";
+                result.className = 'alert alert-success';
+                tenorGif.style.display = "block";
+                giphyMeme.style.display = "none";
+                largeGiphyMeme.style.display = "none";
+                submit.disabled = true;
+                result.style.animation = "bounce 0.5s ease-in-out";
+            } else if (guess < randomnumber) {
+                result.textContent = "Try a bigger number";
+                result.className = 'alert alert-danger';
+                giphyMeme.style.display = "block";
+                tenorGif.style.display = "none";
+                largeGiphyMeme.style.display = "none";
+            } else if (guess > randomnumber) {
+                result.textContent = "Try a smaller number";
+                result.className = 'alert alert-danger';
+                largeGiphyMeme.style.display = "block";
+                giphyMeme.style.display = "none";
+                tenorGif.style.display = "none";
+            } else {
+                result.textContent = "Please enter a number";
+                result.className = 'alert alert-warning';
+            }
+        }
+
+        function resetGame() {
+            randomnumber = Math.floor(Math.random() * 101);
+            document.getElementById("user-input").value = "";
+            document.getElementById("result").textContent = "";
+            document.getElementById("submit").disabled = false;
+            document.getElementById("tenor-gif").style.display = "none";
+            document.getElementById("giphy-meme").style.display = "none";
+            document.getElementById("large-giphy-meme").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
